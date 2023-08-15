@@ -1,0 +1,308 @@
+﻿<Window x:Class="GruziVezi.WOperator"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GruziVezi"
+        mc:Ignorable="d"
+        Title="Окно оператора: " Height="581.033" Width="1056.46">
+    <Grid>
+        <TabControl HorizontalAlignment="Left" Height="520"  VerticalAlignment="Top" Width="1038">
+            <TabItem Header="Заказы" Height="22" Background="#273746" Foreground="DodgerBlue" VerticalAlignment="Top" >
+                <Canvas>
+                    <DataGrid Name="dgOrders" IsVisibleChanged="dgOrders_IsVisibleChanged" HorizontalAlignment="Left" Height="437" AutoGenerateColumns="False" VerticalAlignment="Top" Width="619" Canvas.Top="4" SelectionChanged="FillTBOrder" >
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Binding="{Binding customSenders}" Header="Заказчик" Width="1*"/>
+                            <DataGridTextColumn Binding="{Binding customRoutes}" Header="Маршрут" Width="1*"/>
+                            <DataGridTextColumn Binding="{Binding customDrivers}" Header="Водитель" Width="160"/>
+                            <DataGridTextColumn Binding="{Binding order.Status.name}" Header="Статус" Width="110"/>
+
+                        </DataGrid.Columns>
+                    </DataGrid>
+
+                    <Label Content="Поиск" Canvas.Left="646" Canvas.Top="10"/>
+                    <Label Content="Заказчик" Canvas.Left="646" Canvas.Top="41"/>
+                    <Label Content="Маршрут" Canvas.Left="647" Canvas.Top="72"/>
+                    <Label Content="Описание" Canvas.Left="647" Canvas.Top="258" />
+                    <Border BorderThickness="1" Grid.Column="0" Grid.Row="6" BorderBrush="Black" CornerRadius="5" Padding="4"  Canvas.Left="747" Canvas.Top="10">
+                        <TextBox  Name="tbSearch" BorderThickness="0" TextWrapping="Wrap" Width="141"  />
+                    </Border>
+                    <Border BorderThickness="1" Grid.Column="0" Grid.Row="6" BorderBrush="Black" CornerRadius="5" Padding="4"  Canvas.Left="892" Canvas.Top="103">
+                        <TextBox  Name="tbAdressStart" BorderThickness="0" TextWrapping="Wrap"  Width="125" />
+                    </Border>
+                    <Border BorderThickness="1" Grid.Column="0" Grid.Row="6" BorderBrush="Black" CornerRadius="5" Padding="4"  Canvas.Left="747" Canvas.Top="258" >
+                        <TextBox  Name="tbDescription" BorderThickness="0" TextWrapping="Wrap"  Width="275" />
+                    </Border>
+                    <ComboBox  x:Name="cbSenders" SelectedIndex="1" Canvas.Left="747" Canvas.Top="41" Width="141" DisplayMemberPath="customSenders" Height="26"/>
+                    <ComboBox  x:Name="cbCityStart" Canvas.Left="746" Canvas.Top="103" Width="141" DisplayMemberPath="name" Height="26" SelectionChanged="ClearCBSavedRoutes"/>
+                    <ComboBox  x:Name="cbCityEnd"  Canvas.Left="746" Canvas.Top="134" Width="141" DisplayMemberPath="name" Height="26" SelectionChanged="ClearCBSavedRoutes"/>
+                    <Border BorderThickness="1" Grid.Column="0" Grid.Row="6" BorderBrush="Black" CornerRadius="5" Padding="4"  Canvas.Left="892" Canvas.Top="134">
+                        <TextBox  x:Name="tbAdressEnd" BorderThickness="0" TextWrapping="Wrap"  Width="127"  />
+                    </Border>
+                    <Label Content="Сохраненный маршрут" Canvas.Left="646" Canvas.Top="165"/>
+                    <ComboBox  x:Name="cbSavedRoutes"  Canvas.Left="746" Canvas.Top="196" Width="286" DisplayMemberPath="customRoutes" Height="26" SelectionChanged="ClearTBRoutes" />
+                    <Label Content="Водитель" Canvas.Left="647" Canvas.Top="227"/>
+                    <ComboBox  x:Name="cbDrivers" SelectedIndex="1" Canvas.Left="747" Canvas.Top="227" Width="141" DisplayMemberPath="customDrivers" Height="26"/>
+                    <Label Content="Статус" Canvas.Left="647" Canvas.Top="323" />
+                    <ComboBox  x:Name="cbStatus" SelectedIndex="0" Canvas.Left="747" Canvas.Top="323" Width="141" DisplayMemberPath="name" Height="26"/>
+
+                    <Button Name="btnAddOrder" Content="Добавить" Height="32" Width="112" Canvas.Left="646" Canvas.Top="413" Click="btnAddOrder_Click" >
+                        <Button.Template >
+                            <ControlTemplate>
+                                <Border  CornerRadius="10" >
+                                    <Border.Background>
+                                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="1,0">
+                                            <GradientStop Color="#FF6D91B0" Offset="0.013"/>
+                                            <GradientStop Color="#FF2EAFF9" Offset="0.891"/>
+                                        </LinearGradientBrush>
+                                    </Border.Background>
+                                    <TextBlock Margin="0 10" HorizontalAlignment="Center"  Text="Добавить" FontFamily="Roboto"></TextBlock>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                    <Button Name="btnUpdateOrder" Content="Изменить" Height="32" Width="112" Canvas.Left="776" Canvas.Top="413" Click="btnUpdateOrder_Click">
+                        <Button.Template >
+                            <ControlTemplate>
+                                <Border  CornerRadius="10" >
+                                    <Border.Background>
+                                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="1,0">
+                                            <GradientStop Color="#FF6D91B0" Offset="0.013"/>
+                                            <GradientStop Color="#FF2EAFF9" Offset="0.891"/>
+                                        </LinearGradientBrush>
+                                    </Border.Background>
+                                    <TextBlock Margin="0 10" HorizontalAlignment="Center"  Text="Изменить" FontFamily="Roboto"></TextBlock>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                    <Button Name="btnOtchet" Content="Отчёт заказов" Height="32" Width="112" Canvas.Left="910" Canvas.Top="413" Click="btnOtchet_Click" >
+                        <Button.Template >
+                            <ControlTemplate>
+                                <Border  CornerRadius="10" >
+                                    <Border.Background>
+                                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="1,0">
+                                            <GradientStop Color="#FF6D91B0" Offset="0.013"/>
+                                            <GradientStop Color="#FF2EAFF9" Offset="0.891"/>
+                                        </LinearGradientBrush>
+                                    </Border.Background>
+                                    <TextBlock Margin="0 10" HorizontalAlignment="Center"  Text="Отчёт заказов" FontFamily="Roboto"></TextBlock>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+
+
+                </Canvas>
+            </TabItem>
+            <TabItem Header="Заказчики" Height="22" VerticalAlignment="Top" Background="#273746" Foreground="DodgerBlue">
+                <Canvas>
+                    <DataGrid Name="dgSenders" HorizontalAlignment="Left" Height="437" AutoGenerateColumns="False" VerticalAlignment="Top" Width="619" Canvas.Top="4" SelectionChanged="FillTBSender">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Binding="{Binding surname}" Header="Фамилия" Width="1*"/>
+                            <DataGridTextColumn Binding="{Binding name}" Header="Имя" Width="1*"/>
+                            <DataGridTextColumn Binding="{Binding middlename}" Header="Отчество" Width="160"/>
+                            <DataGridTextColumn Binding="{Binding Company.name}" Header="Компания" Width="110"/>
+
+                        </DataGrid.Columns>
+                    </DataGrid>
+
+                    <Label Content="Фамилия" Canvas.Left="646" Canvas.Top="9"/>
+                    <Label Content="Имя" Canvas.Left="646" Canvas.Top="40" />
+                    <Label Content="Отчество" Canvas.Left="646" Canvas.Top="71"/>
+                    <Border BorderThickness="1" Grid.Column="0" Grid.Row="6" BorderBrush="Black" CornerRadius="5" Padding="4" Canvas.Left="746" Canvas.Top="9" Height="26">
+                        <TextBox  Name="tbSurnameSenders" BorderThickness="0" TextWrapping="Wrap"  Width="141" />
+                    </Border>
+                    <Border BorderThickness="1" Grid.Column="0" Grid.Row="6" BorderBrush="Black" CornerRadius="5" Padding="4"  Canvas.Left="746" Canvas.Top="40" Height="26">
+                        <TextBox  Name="tbNameSenders" BorderThickness="0" TextWrapping="Wrap"  Width="141"/>
+                    </Border>
+                    <Border BorderThickness="1" Grid.Column="0" Grid.Row="6" BorderBrush="Black" CornerRadius="5" Padding="4"  Canvas.Left="746" Canvas.Top="71" Height="26">
+                        <TextBox  x:Name="tbMiddlenameSenders" BorderThickness="0" TextWrapping="Wrap"  Width="141" />
+                    </Border>
+
+                    <Button Name="btnAddSender" Content="Добавить" Height="32" Width="112" Canvas.Left="646" Canvas.Top="413" Click="btnAddSender_Click" >
+                        <Button.Template >
+                            <ControlTemplate>
+                                <Border  CornerRadius="10" >
+                                    <Border.Background>
+                                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="1,0">
+                                            <GradientStop Color="#FF6D91B0" Offset="0.013"/>
+                                            <GradientStop Color="#FF2EAFF9" Offset="0.891"/>
+                                        </LinearGradientBrush>
+                                    </Border.Background>
+                                    <TextBlock Margin="0 10" HorizontalAlignment="Center"  Text="Добавить" FontFamily="Roboto"></TextBlock>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                    <Button Name="btnUpdateSender" Content="Изменить" Height="32" Width="112" Canvas.Left="776" Canvas.Top="413" Click="btnUpdateSender_Click">
+                        <Button.Template >
+                            <ControlTemplate>
+                                <Border  CornerRadius="10" >
+                                    <Border.Background>
+                                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="1,0">
+                                            <GradientStop Color="#FF6D91B0" Offset="0.013"/>
+                                            <GradientStop Color="#FF2EAFF9" Offset="0.891"/>
+                                        </LinearGradientBrush>
+                                    </Border.Background>
+                                    <TextBlock Margin="0 10" HorizontalAlignment="Center"  Text="Изменить" FontFamily="Roboto"></TextBlock>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                    <Button Name="btnOtchetZ" Content="Отчёт заказов" Height="32" Width="112" Canvas.Left="910" Canvas.Top="413" Click="btnOtchetZ_Click" >
+                        <Button.Template >
+                            <ControlTemplate>
+                                <Border  CornerRadius="10" >
+                                    <Border.Background>
+                                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="1,0">
+                                            <GradientStop Color="#FF6D91B0" Offset="0.013"/>
+                                            <GradientStop Color="#FF2EAFF9" Offset="0.891"/>
+                                        </LinearGradientBrush>
+                                    </Border.Background>
+                                    <TextBlock Margin="0 10" HorizontalAlignment="Center"  Text="Отчёт заказчиков" FontFamily="Roboto"></TextBlock>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+
+                    <ComboBox  x:Name="cbCompany" SelectedIndex="1" Canvas.Left="746" Canvas.Top="102" Width="141" DisplayMemberPath="name" Height="26"/>
+                    <Label Content="Компания" Canvas.Left="646" Canvas.Top="102"/>
+                </Canvas>
+            </TabItem>
+            <TabItem Header="Компании" Height="22" VerticalAlignment="Top" Background="#273746" Foreground="DodgerBlue">
+                <Canvas>
+                    <DataGrid Name="dgCompany" HorizontalAlignment="Left" Height="437" AutoGenerateColumns="False" VerticalAlignment="Top" Width="619" Canvas.Top="4" SelectionChanged="FillTBCompany" >
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Binding="{Binding name}" Header="Название компании" Width="1*"/>
+
+
+
+                        </DataGrid.Columns>
+                    </DataGrid>
+
+                    <Label Content="Название" Canvas.Left="646" Canvas.Top="10"/>
+
+                    <Border BorderThickness="1" Grid.Column="0" Grid.Row="6" BorderBrush="Black" CornerRadius="5" Padding="6"   Canvas.Left="747" Canvas.Top="10">
+                        <TextBox  Name="tbCompanyName"  Width="141" BorderThickness="0" />
+                    </Border>
+                    <Button Name="btnAddCompany" Content="Добавить" Height="32" Width="112" Canvas.Left="646" Canvas.Top="413" Click="btnAddCompany_Click" >
+                        <Button.Template >
+                            <ControlTemplate>
+                                <Border  CornerRadius="10" >
+                                    <Border.Background>
+                                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="1,0">
+                                            <GradientStop Color="#FF6D91B0" Offset="0.013"/>
+                                            <GradientStop Color="#FF2EAFF9" Offset="0.891"/>
+                                        </LinearGradientBrush>
+                                    </Border.Background>
+                                    <TextBlock Margin="0 10" HorizontalAlignment="Center"  Text="Добавить" FontFamily="Roboto"></TextBlock>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                    <Button Name="btnOtchetComp" Content="Отчёт заказов" Height="32" Width="112" Canvas.Left="910" Canvas.Top="413" Click="btnOtchetComp_Click" >
+                        <Button.Template >
+                            <ControlTemplate>
+                                <Border  CornerRadius="10" >
+                                    <Border.Background>
+                                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="1,0">
+                                            <GradientStop Color="#FF6D91B0" Offset="0.013"/>
+                                            <GradientStop Color="#FF2EAFF9" Offset="0.891"/>
+                                        </LinearGradientBrush>
+                                    </Border.Background>
+                                    <TextBlock Margin="0 10" HorizontalAlignment="Center"  Text="Отчёт компаний" FontFamily="Roboto"></TextBlock>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                    <Button Name="btnUpdateCompany" Content="Изменить" Height="32" Width="112" Canvas.Left="776" Canvas.Top="413" Click="btnUpdateCompany_Click">
+                        <Button.Template >
+                            <ControlTemplate>
+                                <Border  CornerRadius="10" >
+                                    <Border.Background>
+                                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="1,0">
+                                            <GradientStop Color="#FF6D91B0" Offset="0.013"/>
+                                            <GradientStop Color="#FF2EAFF9" Offset="0.891"/>
+                                        </LinearGradientBrush>
+                                    </Border.Background>
+                                    <TextBlock Margin="0 10" HorizontalAlignment="Center"  Text="Изменить" FontFamily="Roboto"></TextBlock>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+
+
+                </Canvas>
+            </TabItem>
+            <TabItem Header="Города" Height="22" VerticalAlignment="Top" Background="#273746" Foreground="DodgerBlue">
+                <Canvas>
+                    <DataGrid Name="dgCities" HorizontalAlignment="Left" Height="437" AutoGenerateColumns="False" VerticalAlignment="Top" Width="619" Canvas.Top="4" SelectionChanged="FillTBCity" >
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Binding="{Binding name}" Header="Название города" Width="1*"/>
+
+
+
+                        </DataGrid.Columns>
+                    </DataGrid>
+
+                    <Label Content="Город" Canvas.Left="646" Canvas.Top="10"/>
+
+                    <Border BorderThickness="1" Grid.Column="0" Grid.Row="6" BorderBrush="Black" CornerRadius="5" Padding="6"  Canvas.Left="747" Canvas.Top="10">
+                        <TextBox  Name="tbCityName" TextWrapping="Wrap" Width="141" Canvas.Left="747" Canvas.Top="10" BorderThickness="0"/>
+                    </Border>
+                    <Button Name="btnAddCity" Content="Добавить" Height="32" Width="112" Canvas.Left="646" Canvas.Top="413" Click="btnAddCity_Click" >
+                        <Button.Template >
+                            <ControlTemplate>
+                                <Border  CornerRadius="10" >
+                                    <Border.Background>
+                                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="1,0">
+                                            <GradientStop Color="#FF6D91B0" Offset="0.013"/>
+                                            <GradientStop Color="#FF2EAFF9" Offset="0.891"/>
+                                        </LinearGradientBrush>
+                                    </Border.Background>
+                                    <TextBlock Margin="0 10" HorizontalAlignment="Center"  Text="Добавить" FontFamily="Roboto"></TextBlock>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                    <Button Name="btnUpdateCity" Content="Изменить" Height="32" Width="112" Canvas.Left="776" Canvas.Top="413" Click="btnUpdateCity_Click">
+                        <Button.Template >
+                            <ControlTemplate>
+                                <Border  CornerRadius="10" >
+                                    <Border.Background>
+                                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="1,0">
+                                            <GradientStop Color="#FF6D91B0" Offset="0.013"/>
+                                            <GradientStop Color="#FF2EAFF9" Offset="0.891"/>
+                                        </LinearGradientBrush>
+                                    </Border.Background>
+                                    <TextBlock Margin="0 10" HorizontalAlignment="Center"  Text="Изменить" FontFamily="Roboto"></TextBlock>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                    <Button Name="btnOtchetCiti" Content="Отчёт заказов" Height="32" Width="112" Canvas.Left="910" Canvas.Top="413" Click="btnOtchetCiti_Click" >
+                        <Button.Template >
+                            <ControlTemplate>
+                                <Border  CornerRadius="10" >
+                                    <Border.Background>
+                                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="1,0">
+                                            <GradientStop Color="#FF6D91B0" Offset="0.013"/>
+                                            <GradientStop Color="#FF2EAFF9" Offset="0.891"/>
+                                        </LinearGradientBrush>
+                                    </Border.Background>
+                                    <TextBlock Margin="0 10" HorizontalAlignment="Center"  Text="Отчёт городов" FontFamily="Roboto"></TextBlock>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+
+
+                </Canvas>
+            </TabItem>
+
+        </TabControl>
+
+
+    </Grid>
+</Window>

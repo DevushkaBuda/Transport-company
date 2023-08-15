@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="3e51b4b021044eb79ce7f455b8efaaed" Name="Diagram1">
+        <EntityTypeShape EntityType="GruziVeziModel.Cars" Width="1.5" PointX="0.75" PointY="6" IsExpanded="true" />
+        <EntityTypeShape EntityType="GruziVeziModel.Cities" Width="1.5" PointX="0.75" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GruziVeziModel.Company" Width="1.5" PointX="0.75" PointY="12.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="GruziVeziModel.Drivers" Width="1.5" PointX="3" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="GruziVeziModel.ModelCars" Width="1.5" PointX="1.5" PointY="9.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="GruziVeziModel.Orders" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="GruziVeziModel.Roles" Width="1.5" PointX="0.75" PointY="17.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="GruziVeziModel.Routes" Width="1.5" PointX="3" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="GruziVeziModel.Senders" Width="1.5" PointX="3" PointY="11.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="GruziVeziModel.Status" Width="1.5" PointX="3" PointY="15" IsExpanded="true" />
+        <EntityTypeShape EntityType="GruziVeziModel.Users" Width="1.5" PointX="3" PointY="17.375" IsExpanded="true" />
+        <AssociationConnector Association="GruziVeziModel.FK_Cars_ModelCars" ManuallyRouted="false" />
+        <AssociationConnector Association="GruziVeziModel.FK_Drivers_Cars" ManuallyRouted="false" />
+        <AssociationConnector Association="GruziVeziModel.FK_Routes_CitiesEnd" ManuallyRouted="false" />
+        <AssociationConnector Association="GruziVeziModel.FK_Routes_CitiesStart" ManuallyRouted="false" />
+        <AssociationConnector Association="GruziVeziModel.FK_Senders_Company" ManuallyRouted="false" />
+        <AssociationConnector Association="GruziVeziModel.FK_Orders_Drivers" ManuallyRouted="false" />
+        <AssociationConnector Association="GruziVeziModel.FK_Orders_Routes" ManuallyRouted="false" />
+        <AssociationConnector Association="GruziVeziModel.FK_Orders_Senders" ManuallyRouted="false" />
+        <AssociationConnector Association="GruziVeziModel.FK_Orders_Status" ManuallyRouted="false" />
+        <AssociationConnector Association="GruziVeziModel.FK_Orders_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="GruziVeziModel.FK_Users_Roles" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
